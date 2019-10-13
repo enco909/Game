@@ -5,13 +5,14 @@ CXX=g++ -std=c++17
 SOURCES := $(wildcard *.cpp)
 OBJECTS := $(patsubst %.cpp, %.o, $(SOURCES))
 DEPENDS := $(patsubst %.cpp, %.d, $(SOURCES))
-TARGET = cpiwp
+TARGET = Game
 
 #Compilation flags
-CXXFLAGS += -O2
+LDFLAGS = -lSDL2
+CXXFLAGS = -O2
 
 all: $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(OBJECTS) $(CMDFLAGS) -o $(TARGET) 
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $(OBJECTS) $(CMDFLAGS) -o $(TARGET) 
 
 -include $(DEPENDS)
 
@@ -30,7 +31,7 @@ optimized: all
 
 #Run program with flags specified in RUNFLAGS
 run: 
-	./cpiwp
+	./$(TARGET)
 
 clean:
 	$(RM) $(OBJECTS) $(DEPENDS) cpiwp*
