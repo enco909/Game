@@ -1,0 +1,7 @@
+﻿---
+BreakBeforeBraces: WebKit
+NamespaceIndentation: All
+AllowShortFunctionsOnASingleLine: false
+ColumnLimit: 78
+
+...
