@@ -8,7 +8,7 @@ DEPENDS := $(patsubst %.cpp, %.d, $(SOURCES))
 TARGET = Game
 
 #Compilation flags
-LDFLAGS = -lSDL2
+LDFLAGS = -lSDL2 -lSDL2_image
 CXXFLAGS = -O2
 
 all: $(OBJECTS)

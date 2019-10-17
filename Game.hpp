@@ -2,6 +2,8 @@
 #define Game_hpp
 
 #include "SDL2/SDL.h"
+#include <SDL2/SDL_image.h>
+#include <iostream>
 
 class Game {
 public:
@@ -58,6 +60,8 @@ private:
   SDL_Renderer *renderer;
 
   bool isRunning; // True if game is running, false when not
+
+  int cnt = 0; // Update counter
 };
 
 #endif // Game_hpp

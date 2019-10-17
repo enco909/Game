@@ -1,5 +1,8 @@
 #include "Game.hpp"
-#include <iostream>
+
+// For storing player texture
+SDL_Texture *playerTex;
+SDL_Rect srcR, destR;
 
 Game::~Game()
 {
@@ -46,6 +49,11 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
     isRunning = true; // Game is now running
   } else
     isRunning = false; // Failed to start game
+
+  SDL_Surface *tmpSurface = IMG_Load("assets/Henriette.png"); // Load image
+  playerTex = SDL_CreateTextureFromSurface(
+      renderer, tmpSurface);   // Create texture from image
+  SDL_FreeSurface(tmpSurface); // Clear surface
 }
 
 void Game::handleEvents()
@@ -66,15 +74,20 @@ void Game::handleEvents()
 
 void Game::update()
 {
+  cnt++;
+
+  destR.h = 80;
+  destR.w = 80;
+  destR.x = cnt;
 }
 
 void Game::render()
 {
   SDL_RenderClear(renderer); // Clear rendering target
 
-  /* Rendering stuff here */
+  SDL_RenderCopy(renderer, playerTex, NULL, &destR);
 
-  SDL_RenderPresent(renderer); // Update screen
+      SDL_RenderPresent(renderer); // Update screen
 }
 
 void Game::clean()
