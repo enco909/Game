@@ -9,7 +9,7 @@ TARGET = Game
 
 #Compilation flags
 LDFLAGS = -lSDL2 -lSDL2_image
-CXXFLAGS = -O2
+CXXFLAGS = -O2 -Wall
 
 all: $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $(OBJECTS) $(CMDFLAGS) -o $(TARGET) 

@@ -1,0 +1,4 @@
+-std=c++17
+-lSDL2
+-lSDL2_image
+-I/home/enrico/Dokumente/Programming/C++/JumpNRun/
