@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "TextureManager.hpp"
 
 // For storing player texture
 SDL_Texture *playerTex;
@@ -50,10 +51,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   } else
     isRunning = false; // Failed to start game
 
-  SDL_Surface *tmpSurface = IMG_Load("assets/Henriette.png"); // Load image
-  playerTex = SDL_CreateTextureFromSurface(
-      renderer, tmpSurface);   // Create texture from image
-  SDL_FreeSurface(tmpSurface); // Clear surface
+  playerTex = TextureManager::LoadTexture("assets/Henriette.png", renderer);
 }
 
 void Game::handleEvents()
