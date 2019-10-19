@@ -74,23 +74,27 @@ void Game::handleEvents()
 
 void Game::update()
 {
+  // Update counter
+  cnt++;
+
+  // Position of rectangle holding texture
   destR.h = 80;
   destR.w = 80;
 
+  // Saving current size of window
   int currWidth, currHeight;
 
   SDL_GetWindowSize(window, &currWidth, &currHeight);
 
-  std::cerr << destR.x << "\t" << destR.y << "\n";
-
+  // Let the texture run in a square over the screen
   if (destR.x < currWidth - 80 && destR.y == 0)
-    destR.x++;
+    destR.x += 2;
   else if (destR.y < currHeight - 80 && destR.x == currWidth - 80)
-    destR.y++;
+    destR.y += 2;
   else if (destR.x > 0 && destR.y == currHeight - 80)
-    destR.x--;
+    destR.x -= 2;
   else if (destR.x == 0 && destR.y >= 0)
-    destR.y--;
+    destR.y -= 2;
 }
 
 void Game::render()
