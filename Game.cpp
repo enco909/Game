@@ -1,9 +1,9 @@
 #include "Game.hpp"
+#include "GameObject.hpp"
 #include "TextureManager.hpp"
 
-// For storing player texture
-SDL_Texture *playerTex;
-SDL_Rect srcR, destR;
+GameObject *player1;
+GameObject *player2;
 
 Game::~Game()
 {
@@ -51,7 +51,8 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   } else
     isRunning = false; // Failed to start game
 
-  playerTex = TextureManager::LoadTexture("assets/Henriette.png", renderer);
+  player1 = new GameObject("assets/Henriette.png", renderer, 0, 0);
+  player2 = new GameObject("assets/Henriette.png", renderer, 720, 520);
 }
 
 void Game::handleEvents()
@@ -72,35 +73,15 @@ void Game::handleEvents()
 
 void Game::update()
 {
-  // Update counter
-  cnt++;
-
-  // Position of rectangle holding texture
-  destR.h = 80;
-  destR.w = 80;
-
-  // Saving current size of window
-  int currWidth, currHeight;
-
-  SDL_GetWindowSize(window, &currWidth, &currHeight);
-
-  // Let the texture run in a square over the screen
-  if (destR.x < currWidth - 80 && destR.y == 0)
-    destR.x += 2;
-  else if (destR.y < currHeight - 80 && destR.x == currWidth - 80)
-    destR.y += 2;
-  else if (destR.x > 0 && destR.y == currHeight - 80)
-    destR.x -= 2;
-  else if (destR.x == 0 && destR.y >= 0)
-    destR.y -= 2;
+  player1->Update();
+  player2->Update();
 }
 
 void Game::render()
 {
   SDL_RenderClear(renderer);
-
-  SDL_RenderCopy(renderer, playerTex, NULL, &destR);
-
+  player1->Render();
+  player2->Render();
   SDL_RenderPresent(renderer); // Update screen
 }
 
