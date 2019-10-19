@@ -63,7 +63,7 @@ void Game::handleEvents()
 
   // Check for running events
   switch (event.type) {
-  case SDL_QUIT: // Stops game
+  case SDL_QUIT:
     isRunning = false;
     break;
 
@@ -74,20 +74,32 @@ void Game::handleEvents()
 
 void Game::update()
 {
-  cnt++;
-
   destR.h = 80;
   destR.w = 80;
-  destR.x = cnt;
+
+  int currWidth, currHeight;
+
+  SDL_GetWindowSize(window, &currWidth, &currHeight);
+
+  std::cerr << destR.x << "\t" << destR.y << "\n";
+
+  if (destR.x < currWidth - 80 && destR.y == 0)
+    destR.x++;
+  else if (destR.y < currHeight - 80 && destR.x == currWidth - 80)
+    destR.y++;
+  else if (destR.x > 0 && destR.y == currHeight - 80)
+    destR.x--;
+  else if (destR.x == 0 && destR.y >= 0)
+    destR.y--;
 }
 
 void Game::render()
 {
-  SDL_RenderClear(renderer); // Clear rendering target
+  SDL_RenderClear(renderer);
 
   SDL_RenderCopy(renderer, playerTex, NULL, &destR);
 
-      SDL_RenderPresent(renderer); // Update screen
+  SDL_RenderPresent(renderer); // Update screen
 }
 
 void Game::clean()
