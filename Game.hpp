@@ -54,10 +54,11 @@ public:
    */
   bool running();
 
+  static SDL_Renderer *renderer;
+
 private:
   // Graphic library specific variables
   SDL_Window *window;
-  SDL_Renderer *renderer;
 
   bool isRunning; // True if game is running, false when not
 };

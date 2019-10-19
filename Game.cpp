@@ -5,6 +5,8 @@
 GameObject *player1;
 GameObject *player2;
 
+SDL_Renderer *Game::renderer = nullptr;
+
 Game::~Game()
 {
 }
@@ -37,22 +39,22 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
       std::cerr << "ERROR: Failed to create a new window!\n";
 
     // Init renderer
-    renderer = SDL_CreateRenderer(window, -1, 0);
+    Game::renderer = SDL_CreateRenderer(window, -1, 0);
 
-    // Check if renderer creation was successfull
-    if (renderer) {
-      SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    // Check if Game::renderer creation was successfull
+    if (Game::renderer) {
+      SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
 
-      std::cout << "Renderer created!\n";
+      std::cout << "Game::Renderer created!\n";
     } else
-      std::cerr << "ERROR: Failed to initialize renderer!\n";
+      std::cerr << "ERROR: Failed to initialize Game::renderer!\n";
 
     isRunning = true; // Game is now running
   } else
     isRunning = false; // Failed to start game
 
-  player1 = new GameObject("assets/Henriette.png", renderer, 0, 0);
-  player2 = new GameObject("assets/Henriette.png", renderer, 720, 520);
+  player1 = new GameObject("assets/Henriette.png", 0, 0);
+  player2 = new GameObject("assets/Henriette.png", 720, 520);
 }
 
 void Game::handleEvents()
@@ -79,10 +81,10 @@ void Game::update()
 
 void Game::render()
 {
-  SDL_RenderClear(renderer);
+  SDL_RenderClear(Game::renderer);
   player1->Render();
   player2->Render();
-  SDL_RenderPresent(renderer); // Update screen
+  SDL_RenderPresent(Game::renderer); // Update screen
 }
 
 void Game::clean()
