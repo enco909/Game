@@ -1,7 +1,7 @@
 ﻿---
 BreakBeforeBraces: WebKit
 NamespaceIndentation: All
-AllowShortFunctionsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: true
 ColumnLimit: 78
 
 ...

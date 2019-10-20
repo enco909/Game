@@ -1,7 +1,9 @@
 #include "Game.hpp"
+#include "Components.hpp"
+#include "ECS.hpp"
 #include "GameObject.hpp"
-#include "TextureManager.hpp"
 #include "Map.hpp"
+#include "TextureManager.hpp"
 
 GameObject *player1;
 GameObject *player2;
@@ -9,13 +11,12 @@ Map *map;
 
 SDL_Renderer *Game::renderer = nullptr;
 
-Game::~Game()
-{
-}
+Manager manager;
+auto &newPlayer(manager.addEntity());
 
-Game::Game()
-{
-}
+Game::~Game() {}
+
+Game::Game() {}
 
 void Game::init(const char *title, int xpos, int ypos, int width, int height,
                 bool fullscreen)
@@ -59,6 +60,9 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   player2 = new GameObject("assets/Henriette.png", 720, 520);
 
   map = new Map();
+
+  newPlayer.addComponent<PositionComponent>();
+  newPlayer.getComponent<PositionComponent>().setPos(500, 500);
 }
 
 void Game::handleEvents()
@@ -81,6 +85,9 @@ void Game::update()
 {
   player1->Update();
   player2->Update();
+  manager.update();
+  std::cout << newPlayer.getComponent<PositionComponent>().x()
+            << "\t" << newPlayer.getComponent<PositionComponent>().y() << "\n";
 }
 
 void Game::render()
@@ -102,7 +109,4 @@ void Game::clean()
   std::cout << "Game cleared!\n";
 }
 
-bool Game::running()
-{
-  return isRunning;
-}
+bool Game::running() { return isRunning; }
